@@ -1,8 +1,5 @@
 <h1 align="center">Big Data Test Application</h1>
-
-<p>This is a very basic functional e-commerce application, written in Java using Servlets and JSPs. It complies fully with the MVC design pattern, as Servlets are used as Controllers and JSPs take care of the Presentation (View). The Model is described by Entities, that are mapped on tables in a MySQL relational database. The application has 2 versions of DAO layer implementation: plain JDBC and Hibernate.</p>
-<p>You are free to use it as a template for your own online shop software. In current implementation you can add, remove and modify goods, users, roles and orders. The application provides registration and login procedures, passwords are saved into the database as hashes to increase security. You can make orders by adding goods into user's bucket.</p>
-
+<p>This application provides a backend service running in Cloud Run​, which automatically reads ​binary Avro​ files from Google Cloud Storage and load it to BigQuery, every time a file is uploaded to the GCS' bucket.</p>
 ## :nut_and_bolt: Tech Stack
 - Java 11
 - Spring Boot 2
