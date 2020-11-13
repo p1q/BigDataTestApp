@@ -1,6 +1,6 @@
 <h1 align="center">Big Data Test Application</h1>
 <p>This application provides a backend service running in Cloud Run​, which automatically reads ​binary Avro​ files from Google Cloud Storage and load it to BigQuery, every time a file is uploaded to the GCS' bucket.</p>
-## :nut_and_bolt: Tech Stack
+:nut_and_bolt: Tech Stack
 - Java 11
 - Spring Boot 2
 - Google Cloud Platform
