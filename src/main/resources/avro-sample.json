@@ -1,0 +1,5 @@
+{"id":1, "name":"Serj Sergeeff", "phone": {"string": "380682146587"}, "address": null}
+{"id":2, "name":"Victor Smirnoff", "phone": null, "address": null}
+{"id":3, "name":"Mykola Petroff", "phone": {"string": "3809365482"}, "address": {"string": "Odessa, Filatova str., 35"}}
+{"id":4, "name":"Alex Ivanoff", "phone": null, "address": {"string": "Odessa, Generala Petrova str., 38"}}
+
