@@ -1,5 +1,5 @@
 package com.prokop.app.data.big.test.bigdatatest.service;
 
-public interface SaveAvroToBigQuery {
+public interface SaveAvroToBigQueryService {
     void run(String data);
 }

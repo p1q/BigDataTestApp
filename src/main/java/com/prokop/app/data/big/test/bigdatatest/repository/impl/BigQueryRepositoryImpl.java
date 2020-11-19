@@ -8,14 +8,14 @@ import com.google.cloud.bigquery.Job;
 import com.google.cloud.bigquery.JobInfo;
 import com.google.cloud.bigquery.LoadJobConfiguration;
 import com.google.cloud.bigquery.TableId;
-import com.prokop.app.data.big.test.bigdatatest.repository.AvroRepository;
+import com.prokop.app.data.big.test.bigdatatest.repository.BigQueryRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.logging.Logger;
 
 @Repository
-public class AvroRepositoryImpl implements AvroRepository {
-    private final Logger LOGGER = Logger.getLogger(AvroRepositoryImpl.class.getName());
+public class BigQueryRepositoryImpl implements BigQueryRepository {
+    private final Logger LOGGER = Logger.getLogger(BigQueryRepositoryImpl.class.getName());
 
     @Override
     public void loadAvroFromGCSToBQ(String avroUri, String datasetName, String tableName) {

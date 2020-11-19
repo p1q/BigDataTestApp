@@ -1,26 +1,31 @@
 package com.prokop.app.data.big.test.bigdatatest.service.impl;
 
-import com.prokop.app.data.big.test.bigdatatest.repository.impl.AvroRepositoryImpl;
-import com.prokop.app.data.big.test.bigdatatest.service.SaveAvroToBigQuery;
+import com.prokop.app.data.big.test.bigdatatest.repository.BigQueryRepository;
+import com.prokop.app.data.big.test.bigdatatest.service.ParseNotificationService;
+import com.prokop.app.data.big.test.bigdatatest.service.SaveAvroToBigQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
-public class SaveAvroToBigQueryService implements SaveAvroToBigQuery {
+public class SaveAvroToBigQueryServiceImpl implements SaveAvroToBigQueryService {
     private static final String PROJECT_ID = "big-data-test-app";
     private static final String BUCKET_NAME = "big-data-test-app-bucket";
     private static final String DATASET_NAME = "big_query_dataset";
     private static final String ALL_FIELDS_TABLE_NAME = "client_all_fields";
     private static final String MANDATORY_FIELDS_TABLE_NAME = "client-mandatory-fields";
 
+    private final Logger LOGGER = Logger.getLogger(SaveAvroToBigQueryServiceImpl.class.getName());
+
     private ParseNotificationService parseNotificationService;
-    private AvroRepositoryImpl avroRepositoryImpl;
+    private BigQueryRepository bigQueryRepository;
 
     @Autowired
     public void setParseNotificationService(ParseNotificationService parseNotificationService,
-                                            AvroRepositoryImpl avroRepositoryImpl) {
+                                            BigQueryRepository bigQueryRepository) {
         this.parseNotificationService = parseNotificationService;
-        this.avroRepositoryImpl = avroRepositoryImpl;
+        this.bigQueryRepository = bigQueryRepository;
     }
 
     @Override
@@ -32,7 +37,8 @@ System.out.println("ZZZZ48:");
 
         System.out.println("FileUri: " + fileUri);
 
-        avroRepositoryImpl.loadAvroFromGCSToBQ(fileUri, DATASET_NAME, ALL_FIELDS_TABLE_NAME);
+        bigQueryRepository.loadAvroFromGCSToBQ(fileUri, DATASET_NAME, ALL_FIELDS_TABLE_NAME);
+
 /*
         FileIdentifier fileId = parseNotificationService.getFileIdentifier(data);
 

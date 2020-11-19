@@ -1,13 +1,12 @@
 package com.prokop.app.data.big.test.bigdatatest.service.impl;
 
 import com.prokop.app.data.big.test.bigdatatest.model.FileIdentifier;
-import com.prokop.app.data.big.test.bigdatatest.service.ParseNotification;
 import org.springframework.stereotype.Service;
 
 import org.json.JSONObject;
 
 @Service
-public class ParseNotificationService implements ParseNotification {
+public class ParseNotificationServiceImpl implements com.prokop.app.data.big.test.bigdatatest.service.ParseNotificationService {
     @Override
     public String getFileUri(String data) {
         final JSONObject jsonObject = new JSONObject(data);
