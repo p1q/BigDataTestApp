@@ -1,4 +1,4 @@
-package com.prokop.app.data.big.test.bigdatatest.util;
+package com.prokop.app.data.big.test.bigdatatest.repository;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;

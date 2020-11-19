@@ -22,9 +22,9 @@ public class ReceiveNotificationController {
 
     // The method is invoked by a Pub/Sub notification when an object is successfully created in the bucket
     @PostMapping()
-    public ResponseEntity receiveMessage(@RequestBody PubSubMessage message) {
-        if (message != null && message.getData() != null) {
-            String data = new String(Base64.getDecoder().decode(message.getData()
+    public ResponseEntity receiveMessage(@RequestBody PubSubMessage pubSubMessage) {
+        if (pubSubMessage != null && pubSubMessage.message.getData() != null) {
+            String data = new String(Base64.getDecoder().decode(pubSubMessage.message.getData()
                     .getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
             saveAvroToBigQueryService.run(data);
         } else {

@@ -66,25 +66,6 @@ public final class AvroUtility {
         return "";
     }
 
-    public static void loadAvroFromGCSToBQ(String avroUri, String datasetName, String tableName) {
-        try {
-            BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
-            TableId tableId = TableId.of(datasetName, tableName);
-            LoadJobConfiguration loadConfig = LoadJobConfiguration.of(tableId, avroUri, FormatOptions.avro());
-
-            Job job = bigQuery.create(JobInfo.of(loadConfig));
-            job = job.waitFor();
-
-            if (job.isDone()) {
-                LOGGER.info("Avro file was successfully saved to the table " + tableName);
-            } else {
-                LOGGER.severe("Error while loading to BigQuery: " + job.getStatus().getError());
-            }
-        } catch (BigQueryException | InterruptedException e) {
-            LOGGER.severe("Column not added during load append: " + e.toString());
-        }
-    }
-
     public static void writeBytesToBQ(byte[] binaryAvro, String datasetName, String tableName) {
         BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
         TableId tableId = TableId.of(datasetName, tableName);
