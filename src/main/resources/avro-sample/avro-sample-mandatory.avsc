@@ -1,0 +1,12 @@
+{
+"namespace": "com.prokop.app.data.big.test.bigdatatest.model",
+ "type": "record",
+ "name": "Client",
+ "fields": [
+ {"name": "id", "type": "long"},
+ {"name": "name", "type": "string"},
+ {"name": "active", "type": "boolean"},
+ {"name": "gender", "type": {"name": "Gender", "type": "enum", "symbols": ["male", "female", "unknown"]}},
+ {"name": "last_purchases", "type": {"name": "last_purchases", "type": "array", "items": "string"}}
+ ]
+}

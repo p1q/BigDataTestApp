@@ -1,5 +1,5 @@
-{"id":1, "name":"Serj Sergeeff", "phone": {"string": "380682146587"}, "address": null}
-{"id":2, "name":"Victor Smirnoff", "phone": null, "address": null}
-{"id":3, "name":"Mykola Petroff", "phone": {"string": "3809365482"}, "address": {"string": "Odessa, Filatova str., 35"}}
-{"id":4, "name":"Alex Ivanoff", "phone": null, "address": {"string": "Odessa, Generala Petrova str., 38"}}
-
+{"id":1, "name":"Serj Sergeeff", "active": true, "gender": "male", "last_purchases": ["Item1", "Item2", "Item3"], "age": {"int": 39}, "phone": {"string": "380682146587"}, "address": null, "total_purchase_amount": {"double": 458.25}}
+{"id":2, "name":"Victor Smirnoff", "active": true, "gender": "male", "last_purchases": ["Item5", "Item6"], "age": {"int": 26}, "phone": null, "address": null, "total_purchase_amount": {"double": 138.85}}
+{"id":3, "name":"Mykola Petroff", "active": false, "gender": "unknown", "last_purchases": ["Item7"], "age": {"int": 21}, "phone": {"string": "3809365482"}, "address": {"string": "Odessa, Filatova str., 35"}, "total_purchase_amount": null}
+{"id":4, "name":"Alex Ivanoff", "active": false, "gender": "unknown", "last_purchases": ["Item8", "Item9", "Item10"], "age": {"int": 55}, "phone": {"string": "380682146587"}, "address": {"string": "Odessa, Generala Petrova str., 38"}, "total_purchase_amount": {"double": 54.30}}
+{"id":5, "name":"Alina Sudak", "active": true, "gender": "female", "last_purchases": ["Item11", "Item12", "Item13"], "age": {"int": 33}, "phone": {"string": "0963256487"}, "address": null, "total_purchase_amount": {"double": 1547.05}}

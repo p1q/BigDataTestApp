@@ -1,10 +1,16 @@
-{"namespace": "example.gcp",
+{
+"namespace": "example.gcp",
  "type": "record",
  "name": "Client",
  "fields": [
  {"name": "id", "type": "long"},
  {"name": "name", "type": "string"},
+ {"name": "active", "type": "boolean"},
+ {"name": "gender", "type": {"name": "Gender", "type": "enum", "symbols": ["male", "female", "unknown"]}},
+ {"name": "last_purchases", "type": {"name": "last_purchases", "type": "array", "items": "string"}},
+ {"name": "age", "type": ["int", "null"]},
  {"name": "phone", "type": ["string", "null"]},
- {"name": "address", "type": ["string", "null"]}
+ {"name": "address", "type": ["string", "null"]},
+ {"name": "total_purchase_amount", "type": ["double", "null"]}
  ]
 }

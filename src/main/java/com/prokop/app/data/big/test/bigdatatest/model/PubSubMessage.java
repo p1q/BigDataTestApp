@@ -23,6 +23,6 @@ public class PubSubMessage {
         public String messageId;
         public Date publish_time;
         public Date publishTime;
-        private Map<String, String> attributes;
+        public Map<String, String> attributes;
     }
 }
