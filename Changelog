@@ -1,9 +1,13 @@
 Major changes list:
 
 1. Added Repository layer for logic related to accessing physical storage (as requested).
-2. Changed approach: to generate a class and use SpecificDatumReader instead of GenericDatumReader (as requested).
-3. Enlarged the schema with more fields of different types, a sample is in resources folder (optional task).
+2. Changed approach: to generate a class and to use SpecificDatumReader instead of GenericDatumReader (as requested).
+3. Enlarged the schema with more fields of different types (optional task).
+   Was added:
+     - Non-optional fields: active(type: boolean), Gender(type: enum), last_purchases(type: array);
+     - Optional fields: age(type: int), total_purchase_amount(type: double).
+   There is a sample in resources folder.
 4. Added some unit/integration tests.
 
 
-P.S. Thanks for really interesting task and reviewing!
+P.S. Thanks for really interesting task and for reviewing!
