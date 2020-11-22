@@ -1,7 +1,7 @@
 {
 "namespace": "com.prokop.app.data.big.test.bigdatatest.model",
  "type": "record",
- "name": "Client",
+ "name": "ClientMandatory",
  "fields": [
  {"name": "id", "type": "long"},
  {"name": "name", "type": "string"},

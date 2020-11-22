@@ -1,0 +1,5 @@
+{"id":1, "name":"Serj Sergeeff", "active": true, "gender": "male", "last_purchases": ["Item1", "Item2", "Item3"]}
+{"id":2, "name":"Victor Smirnoff", "active": true, "gender": "male", "last_purchases": ["Item5", "Item6"]}
+{"id":3, "name":"Mykola Petroff", "active": false, "gender": "unknown", "last_purchases": ["Item7"]}
+{"id":4, "name":"Alex Ivanoff", "active": false, "gender": "unknown", "last_purchases": ["Item8", "Item9", "Item10"]}
+{"id":5, "name":"Alina Sudak", "active": true, "gender": "female", "last_purchases": ["Item11", "Item12", "Item13"]}
