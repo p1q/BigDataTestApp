@@ -1,4 +1,4 @@
-<h3><span style="text-decoration: underline; color: #800000;"><em><strong>[Changelog for Oleg](https://github.com/p1q/BigDataTestApp/blob/master/Changelog)</strong></em></span></h3>
+<h3><span style="text-decoration: underline; color: #800000;"><em><strong><a href="https://github.com/p1q/BigDataTestApp/blob/master/Changelog">Changelog for Oleg</a></strong></em></span></h3>
 
 <h1 align="center">Big Data Test Application</h1>
 <p>This application provides a backend service running in Cloud Run​, which automatically reads ​binary Avro​ files from Google Cloud Storage and load it to BigQuery, every time a file is uploaded to the GCS' bucket.</p>
