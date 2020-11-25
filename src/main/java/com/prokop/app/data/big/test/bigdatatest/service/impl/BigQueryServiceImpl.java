@@ -1,11 +1,13 @@
 package com.prokop.app.data.big.test.bigdatatest.service.impl;
 
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.prokop.app.data.big.test.bigdatatest.model.Client;
 import com.prokop.app.data.big.test.bigdatatest.model.FileIdentifier;
 import com.prokop.app.data.big.test.bigdatatest.repository.BigQueryRepository;
 import com.prokop.app.data.big.test.bigdatatest.repository.CloudStorageRepository;
-import com.prokop.app.data.big.test.bigdatatest.service.ParseNotificationService;
-import com.prokop.app.data.big.test.bigdatatest.service.SaveAvroToBigQueryService;
+import com.prokop.app.data.big.test.bigdatatest.service.PubSubMessageService;
+import com.prokop.app.data.big.test.bigdatatest.service.BigQueryService;
 import com.prokop.app.data.big.test.bigdatatest.util.AvroUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,33 +15,34 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SaveAvroToBigQueryServiceImpl implements SaveAvroToBigQueryService {
+public class BigQueryServiceImpl implements BigQueryService {
     private static final String PROJECT_ID = "big-data-test-app";
     private static final String BUCKET_NAME = "big-data-test-app-bucket";
     private static final String DATASET_NAME = "big_query_dataset";
     private static final String ALL_FIELDS_TABLE_NAME = "client_all_fields";
     private static final String MANDATORY_FIELDS_TABLE_NAME = "client_mandatory_fields";
 
-    private ParseNotificationService parseNotificationService;
-    private BigQueryRepository bigQueryRepository;
-    private CloudStorageRepository cloudStorageRepository;
+    private final PubSubMessageService pubSubMessageService;
+    private final BigQueryRepository bigQueryRepository;
+    private final CloudStorageRepository cloudStorageRepository;
 
     @Autowired
-    public SaveAvroToBigQueryServiceImpl(ParseNotificationService parseNotificationService,
-                                         BigQueryRepository bigQueryRepository,
-                                         CloudStorageRepository cloudStorageRepository) {
-        this.parseNotificationService = parseNotificationService;
+    public BigQueryServiceImpl(PubSubMessageService pubSubMessageService,
+                               BigQueryRepository bigQueryRepository,
+                               CloudStorageRepository cloudStorageRepository) {
+        this.pubSubMessageService = pubSubMessageService;
         this.bigQueryRepository = bigQueryRepository;
         this.cloudStorageRepository = cloudStorageRepository;
     }
 
     @Override
-    public void run(String data) {
+    public void loadFileToBigQuery(String data) {
         // Get uploaded file's identifiers
-        FileIdentifier fileId = parseNotificationService.getFileIdentifier(data);
+        FileIdentifier fileId = pubSubMessageService.getFileIdentifier(data);
 
         // Read uploaded file from the bucket to array of bytes
-        byte[] binaryAvro = cloudStorageRepository.readObjectFromGCS(fileId, PROJECT_ID, BUCKET_NAME);
+        Storage storage = StorageOptions.newBuilder().setProjectId(PROJECT_ID).build().getService();
+        byte[] binaryAvro = cloudStorageRepository.readObjectFromGCS(storage, fileId, BUCKET_NAME);
 
         // Deserialize binary Avro to List of clients
         List<Client> clients = AvroUtility.deserializeAvro(binaryAvro);
