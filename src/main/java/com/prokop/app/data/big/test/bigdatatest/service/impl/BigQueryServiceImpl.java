@@ -1,7 +1,11 @@
 package com.prokop.app.data.big.test.bigdatatest.service.impl;
 
+import com.google.cloud.bigquery.BigQuery;
+import com.google.cloud.bigquery.BigQueryOptions;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.prokop.app.data.big.test.bigdatatest.exception.LoadFileToBigQueryException;
+import com.prokop.app.data.big.test.bigdatatest.exception.ReadFileFromCloudStorageException;
 import com.prokop.app.data.big.test.bigdatatest.model.Client;
 import com.prokop.app.data.big.test.bigdatatest.model.FileIdentifier;
 import com.prokop.app.data.big.test.bigdatatest.repository.BigQueryRepository;
@@ -36,13 +40,14 @@ public class BigQueryServiceImpl implements BigQueryService {
     }
 
     @Override
-    public void loadFileToBigQuery(String data) {
+    public void loadFileToBigQuery(String data) throws ReadFileFromCloudStorageException,
+            LoadFileToBigQueryException {
         // Get uploaded file's identifiers
         FileIdentifier fileId = pubSubMessageService.getFileIdentifier(data);
 
         // Read uploaded file from the bucket to array of bytes
         Storage storage = StorageOptions.newBuilder().setProjectId(PROJECT_ID).build().getService();
-        byte[] binaryAvro = cloudStorageRepository.readObjectFromGCS(storage, fileId, BUCKET_NAME);
+        byte[] binaryAvro = cloudStorageRepository.readObjectFromGCS(storage, fileId, BUCKET_NAME).getContent();
 
         // Deserialize binary Avro to List of clients
         List<Client> clients = AvroUtility.deserializeAvro(binaryAvro);
@@ -51,9 +56,13 @@ public class BigQueryServiceImpl implements BigQueryService {
         byte[] binaryAvroNonOptional = AvroUtility.serializeNonOptionalAvro(clients);
 
         // Load ALL fields from the file to BigQuery
-        bigQueryRepository.loadBytesToBigQuery(binaryAvro, DATASET_NAME, ALL_FIELDS_TABLE_NAME);
+        BigQuery bigQuery = BigQueryOptions.getDefaultInstance().getService();
+        bigQueryRepository.loadBytesToBigQuery(binaryAvro, DATASET_NAME,
+                ALL_FIELDS_TABLE_NAME, bigQuery);
 
         // Load NON OPTIONAL fields from the file to BigQuery
-        bigQueryRepository.loadBytesToBigQuery(binaryAvroNonOptional, DATASET_NAME, MANDATORY_FIELDS_TABLE_NAME);
+        bigQuery = BigQueryOptions.getDefaultInstance().getService();
+        bigQueryRepository.loadBytesToBigQuery(binaryAvroNonOptional, DATASET_NAME,
+                MANDATORY_FIELDS_TABLE_NAME, bigQuery);
     }
 }

@@ -1,5 +1,7 @@
 package com.prokop.app.data.big.test.bigdatatest.controller;
 
+import com.prokop.app.data.big.test.bigdatatest.exception.LoadFileToBigQueryException;
+import com.prokop.app.data.big.test.bigdatatest.exception.ReadFileFromCloudStorageException;
 import com.prokop.app.data.big.test.bigdatatest.model.PubSubMessage;
 import com.prokop.app.data.big.test.bigdatatest.service.BigQueryService;
 import org.json.JSONObject;
@@ -27,7 +29,11 @@ public class PubSubMessageController {
     @PostMapping()
     public ResponseEntity<String> receiveMessage(@RequestBody PubSubMessage pubSubMessage) {
         if (isPubSubMessageNullSafe(pubSubMessage) && !isObjectFolder(pubSubMessage)) {
-            bigQueryService.loadFileToBigQuery(decodeMessageData(pubSubMessage));
+            try {
+                bigQueryService.loadFileToBigQuery(decodeMessageData(pubSubMessage));
+            } catch (ReadFileFromCloudStorageException | LoadFileToBigQueryException e) {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         } else if (isPubSubMessageNullSafe(pubSubMessage) && isObjectFolder(pubSubMessage)) {
             return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);

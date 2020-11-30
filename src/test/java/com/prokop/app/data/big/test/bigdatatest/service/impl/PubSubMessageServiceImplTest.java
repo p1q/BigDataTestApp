@@ -1,7 +1,7 @@
 package com.prokop.app.data.big.test.bigdatatest.service.impl;
 
 import com.prokop.app.data.big.test.bigdatatest.model.FileIdentifier;
-import com.prokop.app.data.big.test.bigdatatest.service.ParseNotificationService;
+import com.prokop.app.data.big.test.bigdatatest.service.PubSubMessageService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
-public class ParseNotificationServiceImplTest {
+public class PubSubMessageServiceImplTest {
     private final String data1 = "{\n" +
             "  \"kind\": \"storage#object\",\n" +
             "  \"id\": \"big-data-test-app-bucket/test-folder//1605870315052428\",\n" +
@@ -56,30 +56,30 @@ public class ParseNotificationServiceImplTest {
 
     private FileIdentifier expectedResult;
     private FileIdentifier actualResult;
-    private ParseNotificationService parseNotificationService = new ParseNotificationServiceImpl();
+    private final PubSubMessageService pubSubMessageService = new PubSubMessageServiceImpl();
 
     @Test
     public void testGetFileIdentifier_ShouldReturnValidFileIdentifierObject() {
         expectedResult = new FileIdentifier("avro.sample", "1605870315052428");
-        actualResult = parseNotificationService.getFileIdentifier(data1);
+        actualResult = pubSubMessageService.getFileIdentifier(data1);
         assertEquals(expectedResult, actualResult);
 
         expectedResult = new FileIdentifier("another.avro.sample", "1605870315052428000000");
-        actualResult = parseNotificationService.getFileIdentifier(data2);
+        actualResult = pubSubMessageService.getFileIdentifier(data2);
         assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = java.lang.AssertionError.class)
     public void testGetFileIdentifier_ShouldReturnAssertionErrorForIntentionallyWrongInput() {
         expectedResult = new FileIdentifier("Something wrong", "Something wrong");
-        actualResult = parseNotificationService.getFileIdentifier(data1);
+        actualResult = pubSubMessageService.getFileIdentifier(data1);
         assertEquals(expectedResult, actualResult);
     }
 
     @Test(expected = java.lang.NullPointerException.class)
     public void testGetFileIdentifier_ShouldReturnNullPointerExceptionForNullInput() {
         expectedResult = new FileIdentifier("avro.sample", "1605870315052428");
-        actualResult = parseNotificationService.getFileIdentifier(null);
+        actualResult = pubSubMessageService.getFileIdentifier(null);
         assertEquals(expectedResult, actualResult);
     }
 }
